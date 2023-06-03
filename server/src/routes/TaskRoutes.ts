@@ -1,9 +1,23 @@
 import express from 'express'
+import { prisma } from '../lib/prisma'
+import { z } from 'zod'
 
-const TaskRoutes = express.Router()
+export default express
+  .Router()
 
-TaskRoutes.get('/task', (req, res) => {
-  res.send('ok')
-})
+  .get('/tasks', async (req, res) => {
+    const tasks = await prisma.task.findMany({ orderBy: { createdAt: 'asc' } })
+    return tasks
+  })
 
-export default TaskRoutes
+  .get('/tasks/:id', async (req, res) => {
+    try {
+      const paramsSchema = z.object({ id: z.string().uuid() })
+      const { id } = paramsSchema.parse(req.params)
+
+      const task = await prisma.task.findUniqueOrThrow({ where: { id } })
+      return task
+    } catch (e) {
+      return res.send(e)
+    }
+  })
