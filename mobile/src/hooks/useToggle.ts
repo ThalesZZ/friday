@@ -6,8 +6,8 @@ export default function useToggle(defaultValue = false) {
   return React.useMemo(
     () => ({
       active,
-      enabled: () => setActive(true),
-      disabled: () => setActive(false),
+      enabled: () => setActive(() => true),
+      disabled: () => setActive(() => false),
       toggle: () => setActive((a) => !a),
       set: setActive,
     }),
