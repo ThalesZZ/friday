@@ -1,0 +1,9 @@
+{
+    "extends": [
+        "@rocketseat/eslint-config/react"
+    ],
+    "rules": {
+        "prettier/prettier": "warn",
+        "no-unused-vars": "warn"
+    }
+}
