@@ -7,6 +7,13 @@ export const TaskSchema = z.object({
   createdAt: z.coerce.date(),
 })
 
+export type TaskDTO = {
+  id: string
+  label: string
+  description: string
+  createdAt: string
+}
+
 export class Task {
   constructor(
     readonly id: string,
@@ -22,7 +29,7 @@ export class Task {
     this.createdAt = params.createdAt
   }
 
-  static fromDTO(dto: any): Task {
+  static fromDTO(dto: TaskDTO): Task {
     const { id, label, description, createdAt } = TaskSchema.parse(dto)
     return new Task(id, label, description, createdAt)
   }
