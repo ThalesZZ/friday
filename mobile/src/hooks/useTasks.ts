@@ -1,9 +1,9 @@
 import React from 'react'
 import api from '../lib/api'
 import { Task } from '../models/Task'
-import useLoading from './useLoading'
+import useLoading, { LoadingState } from './useLoading'
 
-export default function useTasks() {
+export default function useTasks(): [Task[], LoadingState] {
   const [tasks, setTasks] = React.useState<Task[]>([])
   const loading = useLoading()
 
@@ -25,5 +25,5 @@ export default function useTasks() {
     fetchTasks()
   }, [])
 
-  return React.useMemo(() => [tasks, loading.state], [])
+  return React.useMemo(() => [tasks, loading.state], [loading.state, tasks])
 }

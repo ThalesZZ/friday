@@ -1,20 +1,20 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View, Text } from 'react-native'
 import useTasks from './src/hooks/useTasks'
-import { LoadingState } from './src/hooks/useLoading'
 
 export default function App() {
-  const [tasks, loadingTasksState] = useTasks()
+  const [tasks] = useTasks()
 
   return (
     <View style={styles.container}>
       <StatusBar style="light" translucent />
 
-      <Text style={{ color: 'white' }}>
-        {loadingTasksState === LoadingState.LOADING
-          ? 'loading...'
-          : JSON.stringify(tasks)}
-      </Text>
+      {tasks.map((task) => (
+        <View key={task.id}>
+          <Text style={{ color: 'white' }}>{task.label}</Text>
+          <Text style={{ color: 'white' }}>{task.description}</Text>
+        </View>
+      ))}
     </View>
   )
 }

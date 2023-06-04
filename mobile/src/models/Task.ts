@@ -9,10 +9,10 @@ export const TaskSchema = z.object({
 
 export class Task {
   constructor(
-    private readonly id: string,
-    private readonly label: string,
-    private readonly description: string,
-    private readonly createdAt: Date,
+    readonly id: string,
+    readonly label: string,
+    readonly description: string,
+    readonly createdAt: Date,
   ) {
     const params = TaskSchema.parse({ id, label, description, createdAt })
 
